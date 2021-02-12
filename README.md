@@ -6,6 +6,11 @@ The sentinel of your personal network
 
 ## Table of content
 
+**_[Description](#description)_**  
+**_[Project Structure](#project-structure)_**  
+**_[Technologies](#technologies)_**  
+**_[Setup](#setup)_**
+
 ## Description
 
 The purpose of this software is to allow anyone who wishes to monitor their network using a user friendly interface.
