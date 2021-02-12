@@ -28,7 +28,7 @@ The purpose of this software is to allow anyone who wishes to monitor their netw
 
 - Scapy (python)
 - Strapi (javascript)
-- React (javascript)
+- React (javascript) maybe
 
 ## Setup
 
