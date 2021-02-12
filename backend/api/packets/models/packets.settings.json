@@ -10,14 +10,27 @@
     "draftAndPublish": true
   },
   "attributes": {
-    "ip": {
-      "type": "string"
+    "src": {
+      "type": "string",
+      "required": true
     },
-    "port": {
-      "type": "string"
+    "sport": {
+      "type": "string",
+      "required": true
     },
-    "capture_time": {
-      "type": "datetime"
+    "dst": {
+      "type": "string",
+      "required": true
+    },
+    "dport": {
+      "type": "string",
+      "required": true
+    },
+    "proto": {
+      "type": "integer"
+    },
+    "iteration": {
+      "type": "integer"
     }
   }
 }
