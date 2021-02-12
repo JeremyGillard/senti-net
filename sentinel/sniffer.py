@@ -61,12 +61,3 @@ def processing(pkt):
 
 if __name__ == '__main__':
   sniff(prn=processing)
-
-  # cursor = connection.cursor()
-  # cursor.execute('SELECT * FROM packets')
-  # rows = cursor.fetchall()
-
-  # for row in rows:
-  #   print(*row)
-
-  # connection.close()
