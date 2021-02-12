@@ -1,6 +1,9 @@
 from scapy.all import *
+import psycopg2
 import requests
 import datetime
+
+connection = psycopg2.connect(database="sentinet", user="sentinet", password="sentinet", host="127.0.0.1", port="5432")
 
 def prettyPrint(pkt):
   time=datetime.datetime.now()
