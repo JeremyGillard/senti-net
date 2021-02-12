@@ -1,0 +1,23 @@
+{
+  "kind": "collectionType",
+  "collectionName": "packets",
+  "info": {
+    "name": "packets"
+  },
+  "options": {
+    "increments": true,
+    "timestamps": true,
+    "draftAndPublish": true
+  },
+  "attributes": {
+    "ip": {
+      "type": "string"
+    },
+    "port": {
+      "type": "string"
+    },
+    "capture_time": {
+      "type": "datetime"
+    }
+  }
+}
