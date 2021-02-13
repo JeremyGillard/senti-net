@@ -1,5 +1,4 @@
 from scapy.all import *
-# import requests
 from datetime import datetime
 from db import connection
 
@@ -55,9 +54,6 @@ def processing(pkt):
   if pkt.haslayer(IP) and hasattr(pkt.payload, "sport"):
     store_in_memory(time, pkt[IP].src, pkt.sport, pkt[IP].dst, pkt.dport, pkt.proto)
     print(len(in_mem_db))
-
-    #response = requests.get(f'http://ip-api.com/json/{str(pkt[IP].src)}')
-    #print(response.json())
 
 if __name__ == '__main__':
   sniff(prn=processing)
