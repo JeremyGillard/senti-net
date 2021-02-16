@@ -1,6 +1,6 @@
 from scapy.all import sniff, IP
 from datetime import datetime
-from copy import deepcopy
+from database import data
 
 class Packet:
   def __init__(self, src, sport, dst, dport, proto, iteration = 0):
@@ -21,7 +21,7 @@ class Packet:
 class Sniffer:
   def __init__(self):
     self.packets_buffer = {}
-    self.display_count = 0
+    self.schedule_value = 0
     self.reference_time = datetime.now()
 
   def listen(self):
@@ -36,13 +36,13 @@ class Sniffer:
 
   def display(self, packet):
     time = datetime.now()
-    if (self.display_count > 20):
-      self.display_count = 0
-    if (self.display_count == 0):
+    if (self.schedule_value > 100):
+      self.schedule_value = 0
+    if (self.schedule_value % 20 == 0):
       print(f'{"Datetime":28} {packet.header()}')
     packet = self.packets_buffer[packet.id]
     print(f'[{time}] {packet}')
-    self.display_count += 1
+    self.schedule_value += 1
 
   def bufferize(self, packet):
     if packet.id in self.packets_buffer:
@@ -52,4 +52,15 @@ class Sniffer:
       self.packets_buffer[packet.id] = packet
 
   def store(self):
-    pass
+    if self.schedule_value == 100:
+      for key in self.packets_buffer:
+        current_packet = self.packets_buffer[key]
+        recorded_packet = data.packets.getPacket(current_packet.src, str(current_packet.sport), current_packet.dst, str(current_packet.dport))
+        if recorded_packet is None:
+          data.packets.postPacket(current_packet.src, str(current_packet.sport), current_packet.dst, str(current_packet.dport), current_packet.proto, current_packet.iteration)
+        else:
+          data.packets.updatePacketIteration(recorded_packet[0], current_packet.iteration + recorded_packet[6])
+
+def run():
+  sniffer = Sniffer()
+  sniffer.listen()

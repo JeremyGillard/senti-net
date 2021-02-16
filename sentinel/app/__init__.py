@@ -1,7 +1,5 @@
-from app.sniffer import Sniffer
-
-sniffer = Sniffer()
+import app.sniffer as sniffer
 
 def run():
-  print('running the app...')
-  sniffer.listen()
+  print('Starting the application...')
+  sniffer.run()
