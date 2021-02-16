@@ -1,6 +1,7 @@
 from scapy.all import *
 from datetime import datetime
-from db import connection
+
+connection = psycopg2.connect(database="sentinet", user="sentinet", password="sentinet", host="127.0.0.1", port="5432")
 
 in_mem_db = {}
 previous_time = datetime.now()
