@@ -1,5 +1,36 @@
+from scapy.all import sniff, IP
 import redis
+import json
 
-r = redis.Redis(host='localhost', port='6379', db=0)
+class Packet:
+  def __init__(self, src, sport, dst, dport, proto):
+    self.src = src
+    self.sport = sport
+    self.dst = dst
+    self.dport = dport
+    self.proto = proto
 
-r.publish('packets', 'Hello World!')
+  def __str__(self):
+    return json.dumps(self.__dict__)
+
+  def json(self):
+    return json.dumps(self.__dict__).encode('utf8')
+
+
+class Sniffer:
+  def __init__(self, redis):
+    self.redis = redis
+
+  def listen(self):
+    sniff(prn=self.process)
+
+  def process(self, scapy_pkt):
+    if scapy_pkt.haslayer(IP) and hasattr(scapy_pkt.payload, "sport"):
+      packet = Packet(scapy_pkt[IP].src, scapy_pkt.sport, scapy_pkt[IP].dst, scapy_pkt.dport, scapy_pkt.proto)
+      self.redis.publish('packets', packet.json())
+
+
+if __name__ == '__main__':
+  r = redis.Redis(host='localhost', port='6379', db=0)
+  sniffer = Sniffer(r)
+  sniffer.listen()
