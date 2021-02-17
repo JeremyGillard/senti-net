@@ -2,7 +2,7 @@ version: "3"
 
 services:
   postgres:
-    container_name: "postgres"
+    container_name: "sentinet-postgres"
     image: "postgres:alpine"
     environment:
       POSTGRES_USER: ${POSTGRES_USER}
@@ -13,7 +13,7 @@ services:
     volumes:
       - "pgdata:/var/lib/postgresql/data/"
   redis:
-    container_name: "redis"
+    container_name: "sentinet-redis"
     image: "redis:alpine"
     ports:
       - "6379:6379"

@@ -1,4 +1,4 @@
-# Senti-net
+# SentiNet
 
 The sentinel of your personal network
 
