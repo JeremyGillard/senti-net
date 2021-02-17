@@ -1,6 +1,14 @@
 import psycopg2
+import sys
 
-connection = psycopg2.connect(database="sentinet", user="sentinet", password="sentinet", host="127.0.0.1", port="5432")
+connection = None
+
+try:
+  connection = psycopg2.connect(database="sentinet", user="sentinet", password="sentinet", host="127.0.0.1", port="5432")
+except psycopg2.OperationalError as er:
+  print('[error] Connection to database failed:\n\n', er)
+  sys.exit()
+
 cursor = connection.cursor()
 
 class Packets:
@@ -30,5 +38,9 @@ class GeoIps:
     cursor.execute("SELECT * FROM geoips WHERE query LIKE %s", (ip,))
     rows = cursor.fetchall()
     return len(rows) != 0
+
+  def postGeoip(self, continent, country, region, city, lat, lon, isp, org, asname, mobile, hosting, proxy, query):
+    cursor.execute("INSERT INTO geoips (continent, country, region, city, lat, lon, isp, org, asname, mobile, hosting, proxy, query) VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s)", (continent, country, region, city, lat, lon, isp, org, asname, mobile, hosting, proxy, query))
+    connection.commit()
 
 geoips = GeoIps()

@@ -1,6 +1,7 @@
 from scapy.all import sniff, IP
 from datetime import datetime
 from database import data
+import app.geoips as geoips
 
 class Packet:
   def __init__(self, src, sport, dst, dport, proto, iteration = 0):
@@ -60,6 +61,7 @@ class Sniffer:
           data.packets.postPacket(current_packet.src, str(current_packet.sport), current_packet.dst, str(current_packet.dport), current_packet.proto, current_packet.iteration)
         else:
           data.packets.updatePacketIteration(recorded_packet[0], current_packet.iteration + recorded_packet[6])
+      geoips.storeGeoIps() # TODO I dont found any other solution for the moment but this need to be moved outside this script. -> not the same concerne
 
 def run():
   sniffer = Sniffer()

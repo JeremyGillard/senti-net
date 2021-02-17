@@ -2,7 +2,7 @@
   "kind": "collectionType",
   "collectionName": "geoips",
   "info": {
-    "name": "Geoips",
+    "name": "geoips",
     "description": ""
   },
   "options": {
@@ -27,16 +27,12 @@
       "type": "string",
       "required": true
     },
-    "district": {
-      "type": "string",
+    "lat": {
+      "type": "decimal",
       "required": true
     },
-    "zip": {
-      "type": "string",
-      "required": true
-    },
-    "timezone": {
-      "type": "string",
+    "lon": {
+      "type": "decimal",
       "required": true
     },
     "isp": {
@@ -55,28 +51,17 @@
       "type": "boolean",
       "required": true
     },
-    "proxy": {
+    "hosting": {
       "type": "boolean",
       "required": true
     },
-    "hosting": {
+    "proxy": {
       "type": "boolean",
       "required": true
     },
     "query": {
       "type": "string",
-      "required": true,
-      "unique": true
-    },
-    "lat": {
-      "type": "decimal",
       "required": true
-    },
-    "lon": {
-      "type": "decimal"
-    },
-    "asnumber": {
-      "type": "string"
     }
   }
 }
