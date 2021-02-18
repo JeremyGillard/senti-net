@@ -1,9 +1,9 @@
 version: "3"
 
 services:
-  postgres:
-    container_name: "sentinet-postgres"
-    image: "postgres:alpine"
+  timescaledb:
+    container_name: "sentinet-timescaledb"
+    image: "timescale/timescaledb:2.0.1-pg12"
     environment:
       POSTGRES_USER: ${POSTGRES_USER}
       POSTGRES_DB: ${POSTGRES_DB}
